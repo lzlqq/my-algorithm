@@ -52,7 +52,7 @@ public class Mstw {
      * 4.在优先级队列中寻找目的地重复的边
      * 在每次向树中增加边的时候，一定要确保没有其他边也到达同样的顶点。如果有，只保留最小权值的边。
      * 这使得在优先级队列中逐步查找成为必要的一步操作，必须违反一下优先级队列的设计思想。
-     * 4.代码
+     * 5.代码
      * while循环结束条件是所有顶点都已在树中。循环中完成下面的操作：
      * 1）当前顶点放在树中
      * 2）连接这个顶点的边放到优先级队列中（如果合适）
@@ -63,7 +63,7 @@ public class Mstw {
         while (nTree < nVerts - 1) {
             vertexList[currentVert].isInTree = true;
             nTree++;
-            // insert edges adjacent to currentVert int PQ
+            // insert edges adjacent to currentVert into PQ
             for (int j = 0; j < nVerts; j++) {
                 if (j == currentVert) {
                     continue;
