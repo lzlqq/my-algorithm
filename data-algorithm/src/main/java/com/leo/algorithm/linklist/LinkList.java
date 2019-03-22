@@ -1,7 +1,5 @@
 package com.leo.algorithm.linklist;
 
-import com.sun.scenario.effect.impl.state.LinearConvolveKernel;
-
 /**
  * 单链表
  */

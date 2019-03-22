@@ -19,7 +19,7 @@ public class Heap {
         return currentSize == 0;
     }
 
-    private boolean insert(int key) {
+    public boolean insert(int key) {
         if (currentSize == maxSize) {
             return false;
         }

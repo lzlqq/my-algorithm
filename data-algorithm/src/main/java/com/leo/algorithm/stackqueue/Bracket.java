@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 public class Bracket {
 
     public static void main(String[] args) throws IOException {
-        String input, output;
+        String input;
         while (true) {
             System.out.print("Enter a string: ");
             System.out.flush();

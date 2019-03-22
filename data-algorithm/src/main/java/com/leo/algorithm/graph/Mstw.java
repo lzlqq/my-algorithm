@@ -1,7 +1,5 @@
 package com.leo.algorithm.graph;
 
-import javafx.scene.control.ListView;
-
 /**
  * 带权图最小生成树
  */

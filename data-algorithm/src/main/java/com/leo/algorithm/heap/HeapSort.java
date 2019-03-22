@@ -10,8 +10,22 @@ public class HeapSort {
 
 
     private Node[] heapArray;
+    @SuppressWarnings("unused")
     private int maxSize;
     private int currentSize;
+    
+    
+    public static void main(String[] args){
+        //sort
+        HeapSort heap =new HeapSort(100);
+        for (int i = heap.currentSize/2-1; i >=0; i--){
+            heap.trickleDown(i);
+        }
+        for(int i=heap.currentSize-1;i>=0;i--) {
+            heap.remove();
+            // insert(i,node)
+        }
+    }
 
     public HeapSort(int maxSize) {
         this.maxSize = maxSize;
