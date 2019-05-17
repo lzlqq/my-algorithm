@@ -1,12 +1,13 @@
-package com.leo.algorithm.sort;
+package com.leo.algorithm.sort.insert;
 
 /**
  * Created by LSH7120 on 2019/1/31.
  */
-public class BubbleSort {
+public class InsertSort {
+
     public static void main(String[] args) {
         int maxSize = 100;
-        ArrayBub arr = new ArrayBub(maxSize);
+        ArrayIns arr = new ArrayIns(maxSize);
         arr.insert(77);
         arr.insert(99);
         arr.insert(44);
@@ -14,15 +15,15 @@ public class BubbleSort {
         arr.insert(22);
         arr.insert(33);
         arr.display();
-        arr.bubbleSort();
+        arr.insertionSort();
         arr.display();
     }
 
-    static class ArrayBub {
+    static class ArrayIns {
         private long[] a;
         private int nElems;
 
-        public ArrayBub(int max) {
+        public ArrayIns(int max) {
             this.a = new long[max];
             this.nElems = 0;
         }
@@ -41,31 +42,24 @@ public class BubbleSort {
 
         /**
          * 规则：
-         * 1.比较两个队员
-         * 2.如果左边的队员高，则两队员交换位置
-         * 3.向右移动一个位置，比较下面两个队员
-         * 4.当碰到第一个排定的队员后，就返回到队列的左端重新开始下一趟排序
+         * 局部有序
          * <p>
          * 效率：
          * O(N2)
          */
-        public void bubbleSort() {
+        public void insertionSort() {
             int out, in;
-            for (out = nElems - 1; out > 1; out--) {
-                for (in = 0; in < out; in++) {
-                    if (a[in] > a[in + 1]) {
-                        swap(in, in + 1);
-                    }
+            for (out = 1; out < nElems; out++) {
+                long temp = a[out];
+                in = out;
+                while (in > 0 && a[in - 1] > temp) {
+                    a[in] = a[in - 1];
+                    --in;
                 }
+                a[in] = temp;
             }
         }
 
-        private void swap(int one, int two) {
-            long temp = a[one];
-            a[one] = a[two];
-            a[two] = temp;
-        }
 
     }
 }
-

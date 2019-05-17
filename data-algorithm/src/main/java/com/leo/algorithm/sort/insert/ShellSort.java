@@ -1,4 +1,4 @@
-package com.leo.algorithm.sort;
+package com.leo.algorithm.sort.insert;
 
 /**
  * 希尔排序

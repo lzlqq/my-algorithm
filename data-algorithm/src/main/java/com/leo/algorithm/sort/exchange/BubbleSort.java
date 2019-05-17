@@ -1,13 +1,12 @@
-package com.leo.algorithm.sort;
+package com.leo.algorithm.sort.exchange;
 
 /**
  * Created by LSH7120 on 2019/1/31.
  */
-public class SelectSort {
-
+public class BubbleSort {
     public static void main(String[] args) {
         int maxSize = 100;
-        ArraySel arr = new ArraySel(maxSize);
+        ArrayBub arr = new ArrayBub(maxSize);
         arr.insert(77);
         arr.insert(99);
         arr.insert(44);
@@ -15,15 +14,15 @@ public class SelectSort {
         arr.insert(22);
         arr.insert(33);
         arr.display();
-        arr.selectSort();
+        arr.bubbleSort();
         arr.display();
     }
 
-    static class ArraySel {
+    static class ArrayBub {
         private long[] a;
         private int nElems;
 
-        public ArraySel(int max) {
+        public ArrayBub(int max) {
             this.a = new long[max];
             this.nElems = 0;
         }
@@ -42,21 +41,22 @@ public class SelectSort {
 
         /**
          * 规则：
-         * 每趟外层循环，只交换一次
+         * 1.比较两个队员
+         * 2.如果左边的队员高，则两队员交换位置
+         * 3.向右移动一个位置，比较下面两个队员
+         * 4.当碰到第一个排定的队员后，就返回到队列的左端重新开始下一趟排序
          * <p>
          * 效率：
          * O(N2)
          */
-        public void selectSort() {
-            int out, in, min;
-            for (out = 0; out < nElems - 1; out++) {
-                min = out;
-                for (in = out + 1; in < nElems; in++) {
-                    if (a[in] < a[min]) {
-                        min = in;
+        public void bubbleSort() {
+            int out, in;
+            for (out = nElems - 1; out > 1; out--) {
+                for (in = 0; in < out; in++) {
+                    if (a[in] > a[in + 1]) {
+                        swap(in, in + 1);
                     }
                 }
-                swap(out, min);
             }
         }
 
@@ -68,3 +68,4 @@ public class SelectSort {
 
     }
 }
+

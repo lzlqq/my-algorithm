@@ -1,13 +1,13 @@
-package com.leo.algorithm.sort;
+package com.leo.algorithm.sort.select;
 
 /**
  * Created by LSH7120 on 2019/1/31.
  */
-public class InsertSort {
+public class SelectSort {
 
     public static void main(String[] args) {
         int maxSize = 100;
-        ArrayIns arr = new ArrayIns(maxSize);
+        ArraySel arr = new ArraySel(maxSize);
         arr.insert(77);
         arr.insert(99);
         arr.insert(44);
@@ -15,15 +15,15 @@ public class InsertSort {
         arr.insert(22);
         arr.insert(33);
         arr.display();
-        arr.insertionSort();
+        arr.selectSort();
         arr.display();
     }
 
-    static class ArrayIns {
+    static class ArraySel {
         private long[] a;
         private int nElems;
 
-        public ArrayIns(int max) {
+        public ArraySel(int max) {
             this.a = new long[max];
             this.nElems = 0;
         }
@@ -42,24 +42,29 @@ public class InsertSort {
 
         /**
          * 规则：
-         * 局部有序
+         * 每趟外层循环，只交换一次
          * <p>
          * 效率：
          * O(N2)
          */
-        public void insertionSort() {
-            int out, in;
-            for (out = 1; out < nElems; out++) {
-                long temp = a[out];
-                in = out;
-                while (in > 0 && a[in - 1] > temp) {
-                    a[in] = a[in - 1];
-                    --in;
+        public void selectSort() {
+            int out, in, min;
+            for (out = 0; out < nElems - 1; out++) {
+                min = out;
+                for (in = out + 1; in < nElems; in++) {
+                    if (a[in] < a[min]) {
+                        min = in;
+                    }
                 }
-                a[in] = temp;
+                swap(out, min);
             }
         }
 
+        private void swap(int one, int two) {
+            long temp = a[one];
+            a[one] = a[two];
+            a[two] = temp;
+        }
 
     }
 }

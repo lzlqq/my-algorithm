@@ -1,4 +1,4 @@
-package com.leo.algorithm.sort;
+package com.leo.algorithm.sort.exchange;
 
 /**
  * 快速排序 N*logN
