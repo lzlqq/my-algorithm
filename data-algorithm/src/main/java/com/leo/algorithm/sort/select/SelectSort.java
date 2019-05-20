@@ -3,9 +3,9 @@ package com.leo.algorithm.sort.select;
 /**
  * Created by LSH7120 on 2019/1/31.
  */
-public class SelectSort {
+public class SelectSort{
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         int maxSize = 100;
         ArraySel arr = new ArraySel(maxSize);
         arr.insert(77);
@@ -19,22 +19,24 @@ public class SelectSort {
         arr.display();
     }
 
-    static class ArraySel {
+    static class ArraySel{
+
         private long[] a;
+
         private int nElems;
 
-        public ArraySel(int max) {
+        public ArraySel(int max){
             this.a = new long[max];
             this.nElems = 0;
         }
 
-        public void insert(long value) {
+        public void insert(long value){
             a[nElems] = value;
             nElems++;
         }
 
-        public void display() {
-            for (int i = 0; i < nElems; i++) {
+        public void display(){
+            for (int i = 0; i < nElems; i++){
                 System.out.print(a[i] + " ");
             }
             System.out.println();
@@ -47,12 +49,13 @@ public class SelectSort {
          * 效率：
          * O(N2)
          */
-        public void selectSort() {
+        public void selectSort(){
             int out, in, min;
-            for (out = 0; out < nElems - 1; out++) {
+            for (out = 0; out < nElems - 1; out++){
                 min = out;
-                for (in = out + 1; in < nElems; in++) {
-                    if (a[in] < a[min]) {
+                for (in = out + 1; in < nElems; in++){
+                    if (a[in] < a[min]){
+                        //只比较，不交换，使用变量保存最小值
                         min = in;
                     }
                 }
@@ -60,7 +63,7 @@ public class SelectSort {
             }
         }
 
-        private void swap(int one, int two) {
+        private void swap(int one,int two){
             long temp = a[one];
             a[one] = a[two];
             a[two] = temp;
