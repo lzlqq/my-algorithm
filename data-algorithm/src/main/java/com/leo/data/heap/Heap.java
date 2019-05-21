@@ -21,6 +21,13 @@ public class Heap{
         return currentSize == 0;
     }
 
+    /**
+     * 若数组中节点的索引为x，则
+     * 1.它的父节点的下标为(x-1)/2
+     * 2.它的左子节点的下标为2*x+1
+     * 3.它的右子节点的下标为2*x+2
+     * 注意：记住"/"这个符号，应用于整数的算式时，它执行整数，且得到的结果时下取整数的值
+     */
     public boolean insert(int key){
         if (currentSize == maxSize){
             return false;
@@ -53,6 +60,8 @@ public class Heap{
         int largerChild;
         Node top = heapArray[index];
         while (index < currentSize / 2){
+            // 前提 2*index < currentSize => index < currentSize/2
+            // 因为 index 最大等于 currentSize/2-1 => 2*index+2=2*(currentSize/2-1)+2=currentSize=>下标刚好是currentSize，但此时右下标为空对应的值刚好越界了
             int leftChild = 2 * index + 1;
             int rightChild = leftChild + 1;
             if (rightChild < currentSize && heapArray[leftChild].getKey() < heapArray[rightChild].getKey()){

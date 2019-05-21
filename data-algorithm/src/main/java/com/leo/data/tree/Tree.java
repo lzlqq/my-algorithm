@@ -3,49 +3,49 @@ package com.leo.data.tree;
 /**
  * 二叉查找树
  */
-public class Tree {
+public class Tree{
 
     private Node root;
 
-    public Tree() {
+    public Tree(){
         root = null;
     }
 
-    public Node find(int key) {
+    public Node find(int key){
         Node current = root;
-        while (current.iData != key) {
-            if (key < current.iData) {
+        while (current.iData != key){
+            if (key < current.iData){
                 current = current.leftChild;
-            } else {
+            }else{
                 current = current.rightChild;
             }
-            if (current == null) {
+            if (current == null){
                 return null;
             }
         }
         return current;
     }
 
-    public void insert(int iData, double dData) {
+    public void insert(int iData,double dData){
         Node newNode = new Node();
         newNode.iData = iData;
         newNode.dData = dData;
-        if (root == null) {
+        if (root == null){
             root = newNode;
-        } else {
+        }else{
             Node current = root;
             Node parent;
-            while (true) {
+            while (true){
                 parent = current;
-                if (iData < current.iData) {
+                if (iData < current.iData){
                     current = current.leftChild;
-                    if (current == null) {
+                    if (current == null){
                         parent.leftChild = newNode;
                         return;
                     }
-                } else {
+                }else{
                     current = current.rightChild;
-                    if (current == null) {
+                    if (current == null){
                         parent.rightChild = newNode;
                         return;
                     }
@@ -54,59 +54,59 @@ public class Tree {
         }
     }
 
-    public boolean delete(int key) {
+    public boolean delete(int key){
         Node current = root;
         Node parent = root;
         boolean isLeftChild = true;
 
-        while (current.iData != key) {
+        while (current.iData != key){
             parent = current;
-            if (key < current.iData) {
+            if (key < current.iData){
                 isLeftChild = true;
                 current = current.leftChild;
-            } else {
+            }else{
                 isLeftChild = false;
                 current = current.rightChild;
             }
-            if (current == null) {
+            if (current == null){
                 return false;
             }
         }
         // if no children ,simply delete it
-        if (current.leftChild == null && current.rightChild == null) {
-            if (current == root) {
+        if (current.leftChild == null && current.rightChild == null){
+            if (current == root){
                 root = null;
-            } else if (isLeftChild) {
+            }else if (isLeftChild){
                 parent.leftChild = null;
-            } else {
+            }else{
                 parent.rightChild = null;
             }
             // if no right child,replace with left subtree
-        } else if (current.rightChild == null) {
-            if (current == root) {
+        }else if (current.rightChild == null){
+            if (current == root){
                 root = current.leftChild;
-            } else if (isLeftChild) {
+            }else if (isLeftChild){
                 parent.leftChild = current.leftChild;
-            } else {
+            }else{
                 parent.rightChild = current.leftChild;
             }
             // if no left child,replace with right subtree
-        } else if (current.leftChild == null) {
-            if (current == root) {
+        }else if (current.leftChild == null){
+            if (current == root){
                 root = current.rightChild;
-            } else if (isLeftChild) {
+            }else if (isLeftChild){
                 parent.leftChild = current.rightChild;
-            } else {
+            }else{
                 parent.rightChild = current.rightChild;
             }
             // two children, so replace with inorder successor
-        } else {
+        }else{
             Node successor = getSuccessor(current);
-            if (current == root) {
+            if (current == root){
                 root = successor;
-            } else if (isLeftChild) {
+            }else if (isLeftChild){
                 parent.leftChild = successor;
-            } else {
+            }else{
                 parent.rightChild = successor;
             }
             // connect successor to current's left child
@@ -115,23 +115,23 @@ public class Tree {
         return true;
     }
 
-    private Node getSuccessor(Node delNode) {
+    private Node getSuccessor(Node delNode){
         Node successorParent = delNode;
         Node successor = delNode;
         Node current = delNode.rightChild;
-        while (current != null) {
+        while (current != null){
             successorParent = successor;
             successor = current;
             current = current.leftChild;
         }
-        if (successor != delNode.rightChild) {
+        if (successor != delNode.rightChild){
             successorParent.leftChild = successor.rightChild;
             successor.rightChild = delNode.rightChild;
         }
         return successor;
     }
 
-    public void traverse(int traverseType) {
+    public void traverse(int traverseType){
         switch (traverseType) {
             case 1:
                 System.out.println("Preorder traverseal: ");
@@ -149,37 +149,41 @@ public class Tree {
         System.out.println();
     }
 
-    private void preOrder(Node localRoot) {
-        if (localRoot != null) {
+    private void preOrder(Node localRoot){
+        if (localRoot != null){
             System.out.print(localRoot.iData + " ");
             preOrder(localRoot.leftChild);
             preOrder(localRoot.rightChild);
         }
     }
 
-    private void inOrder(Node localRoot) {
-        if (localRoot != null) {
+    private void inOrder(Node localRoot){
+        if (localRoot != null){
             inOrder(localRoot.leftChild);
             System.out.print(localRoot.iData + " ");
             inOrder(localRoot.rightChild);
         }
     }
 
-    private void postOrder(Node localRoot) {
-        if (localRoot != null) {
+    private void postOrder(Node localRoot){
+        if (localRoot != null){
             postOrder(localRoot.leftChild);
             postOrder(localRoot.rightChild);
             System.out.print(localRoot.iData + " ");
         }
     }
 
-    class Node {
+    class Node{
+
         public int iData;
+
         public double dData;
+
         public Node leftChild;
+
         public Node rightChild;
 
-        public void displayNode() {
+        public void displayNode(){
             System.out.print("{");
             System.out.print(iData);
             System.out.print(", ");
