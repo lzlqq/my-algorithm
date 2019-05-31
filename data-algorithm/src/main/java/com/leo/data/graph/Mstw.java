@@ -3,39 +3,46 @@ package com.leo.data.graph;
 /**
  * 带权图最小生成树
  */
-public class Mstw {
+public class Mstw{
 
     private final int MAX_VERTS = 20;
+
     private final int INFINITY = 100000;
+
     private Vertex vertexList[];
+
     private int adjMat[][];
+
     private int nVerts;
+
     private int currentVert;
+
     private PriorityQ thePQ;
+
     private int nTree;
 
-    public Mstw() {
+    public Mstw(){
         vertexList = new Vertex[MAX_VERTS];
         adjMat = new int[MAX_VERTS][MAX_VERTS];
         nVerts = 0;
-        for (int j = 0; j < MAX_VERTS; j++) {
-            for (int k = 0; k < MAX_VERTS; k++) {
+        for (int j = 0; j < MAX_VERTS; j++){
+            for (int k = 0; k < MAX_VERTS; k++){
                 adjMat[j][k] = INFINITY;
             }
         }
         thePQ = new PriorityQ();
     }
 
-    public void addVertex(char lab) {
+    public void addVertex(char lab){
         vertexList[nVerts++] = new Vertex(lab);
     }
 
-    public void addEdge(int start, int end, int weight) {
+    public void addEdge(int start,int end,int weight){
         adjMat[start][end] = weight;
         adjMat[end][start] = weight;
     }
 
-    public void displayVertex(int v) {
+    public void displayVertex(int v){
         System.out.println(vertexList[v].label);
     }
 
@@ -44,7 +51,7 @@ public class Mstw {
      * 用优先级队列来实现这个用于反复选择最小造价值的表，而不用链表或数组
      * 2.算法要点
      * 从一个顶点开始，把它放入树的集合中。然后重复做下面的事情：
-     * 1）找到从最新的顶点到其他顶点的所有边，这些顶点不能再树的集合中。把这些边放入优先级队列
+     * 1）找到从最新的顶点到其他顶点的所有边，这些顶点不能在树的集合中。把这些边放入优先级队列
      * 2）找出权值最小的边，把它和它所到达的顶点放入树的集合中。
      * 重复这些步骤，直到所有顶点都在树的集合中。
      * 3.无用边
@@ -58,26 +65,26 @@ public class Mstw {
      * 2）连接这个顶点的边放到优先级队列中（如果合适）
      * 3）从优先级队列中删除权值最小的边。这条边的目的顶点变成当前顶点
      */
-    public void mstw() {
+    public void mstw(){
         currentVert = 0;
-        while (nTree < nVerts - 1) {
+        while (nTree < nVerts - 1){
             vertexList[currentVert].isInTree = true;
             nTree++;
             // insert edges adjacent to currentVert into PQ
-            for (int j = 0; j < nVerts; j++) {
-                if (j == currentVert) {
+            for (int j = 0; j < nVerts; j++){
+                if (j == currentVert){
                     continue;
                 }
-                if (vertexList[j].isInTree) {
+                if (vertexList[j].isInTree){
                     continue;
                 }
                 int distance = adjMat[currentVert][j];
-                if (distance == INFINITY) {
+                if (distance == INFINITY){
                     continue;
                 }
                 putInPQ(j, distance);
             }
-            if (thePQ.size() == 0) {
+            if (thePQ.size() == 0){
                 System.out.println("GRAPH NOT CONNECTED");
                 return;
             }
@@ -89,57 +96,62 @@ public class Mstw {
             System.out.print(vertexList[currentVert].label);
             System.out.print(" ");
         }
-        for (int j = 0; j < nVerts; j++) {
+        for (int j = 0; j < nVerts; j++){
             vertexList[j].isInTree = false;
         }
     }
 
-    private void putInPQ(int newVert, int newDist) {
+    private void putInPQ(int newVert,int newDist){
         int queueIndex = thePQ.find(newVert);
-        if (queueIndex != -1) {
+        if (queueIndex != -1){
             Edge tempEdge = thePQ.peekN(queueIndex);
             int oldDist = tempEdge.distance;
-            if (oldDist > newDist) {
+            if (oldDist > newDist){
                 thePQ.removeN(queueIndex);
                 Edge theEdge = new Edge(currentVert, newVert, newDist);
                 thePQ.insert(theEdge);
             }
-        } else {
+        }else{
             Edge theEdge = new Edge(currentVert, newVert, newDist);
             thePQ.insert(theEdge);
         }
     }
 
-    class Vertex {
+    class Vertex{
+
         public char label;
+
         public boolean isInTree;
 
-        public Vertex(char label) {
+        public Vertex(char label){
             this.label = label;
             this.isInTree = false;
         }
     }
 
-    class PriorityQ {
+    class PriorityQ{
+
         private final int SIZE = 20;
+
         private Edge[] queArray;
+
         private int size;
 
-        public PriorityQ() {
+        public PriorityQ(){
             this.queArray = new Edge[SIZE];
             this.size = 0;
         }
 
-        public void insert(Edge item) {
+        public void insert(Edge item){
             int j;
 
-            for (j = 0; j < size; j++) {
-                if (item.distance >= queArray[j].distance) {
+            for (j = 0; j < size; j++){
+                if (item.distance >= queArray[j].distance){
                     break;
                 }
             }
 
-            for (int k = size - 1; k >= j; k--) {
+            for (int k = size - 1; k >= j; k--){
                 queArray[k + 1] = queArray[k];
             }
 
@@ -147,36 +159,36 @@ public class Mstw {
             size++;
         }
 
-        public Edge removeMin() {
+        public Edge removeMin(){
             return queArray[--size];
         }
 
-        public void removeN(int n) {
-            for (int j = n; j < size - 1; j++) {
+        public void removeN(int n){
+            for (int j = n; j < size - 1; j++){
                 queArray[j] = queArray[j + 1];
             }
             size--;
         }
 
-        public Edge peekMin() {
+        public Edge peekMin(){
             return queArray[size - 1];
         }
 
-        public int size() {
+        public int size(){
             return size;
         }
 
-        public boolean isEmpty() {
+        public boolean isEmpty(){
             return size == 0;
         }
 
-        public Edge peekN(int n) {
+        public Edge peekN(int n){
             return queArray[n];
         }
 
-        public int find(int findDex) {
-            for (int j = 0; j < size; j++) {
-                if (queArray[j].destVert == findDex) {
+        public int find(int findDex){
+            for (int j = 0; j < size; j++){
+                if (queArray[j].destVert == findDex){
                     return j;
                 }
             }
@@ -184,12 +196,15 @@ public class Mstw {
         }
     }
 
-    class Edge {
+    class Edge{
+
         public int srcVert;
+
         public int destVert;
+
         public int distance;
 
-        public Edge(int srcVert, int destVert, int distance) {
+        public Edge(int srcVert, int destVert, int distance){
             this.srcVert = srcVert;
             this.destVert = destVert;
             this.distance = distance;
